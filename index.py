@@ -1,0 +1,50 @@
+import cgi,os,sys,msvcrt,json,socket
+#msvcrt.setmode(sys.stdin.fileno(), os.O_BINARY)
+if os.environ['REQUEST_METHOD'] == 'GET':
+	print('Status: 200 OK')
+	print('Content-Type: text/html')
+	print('')
+	f = open('index.html', 'r').read()
+	print(f)
+else:
+
+	print ('Content-Type: application/json')
+	#print ('Content-Length: ', len(json.dumps(myjson)))
+	#print ('Connection: keep-alive')
+	#print ('Content-Language: ru')
+	print()
+
+	myjson = sys.stdin.read(int(os.environ['CONTENT_LENGTH']))
+	if myjson == 'getInfo':
+		sock = socket.socket()
+		sock.connect(('localhost', 9090))
+		sock.settimeout(1)
+		sock.send(b'getInfo')
+		data = sock.recv(10000)
+		sock.close()
+		print (data.decode("utf-8"))
+	if myjson[:7] == 'lampOff':
+		sock = socket.socket()
+		sock.connect(('localhost', 9090))
+		sock.settimeout(1)
+		sock.send(myjson.encode('utf-8'))
+		data = sock.recv(10000)
+		sock.close()
+		print (data.decode("utf-8"))	
+	if myjson[:6] == 'lampOn':
+		sock = socket.socket()
+		sock.connect(('localhost', 9090))
+		sock.settimeout(1)
+		sock.send(myjson.encode('utf-8'))
+		data = sock.recv(10000)
+		sock.close()
+		print (data.decode("utf-8"))
+	if myjson == 'allOff' or myjson == 'allOn' or myjson == 'getSunsetTime' or myjson == 'getSunriseTime':
+		sock = socket.socket()
+		sock.connect(('localhost', 9090))
+		sock.settimeout(1)
+		sock.send(myjson.encode('utf-8'))
+		data = sock.recv(10000)
+		sock.close()
+		print (data.decode("utf-8"))
+	#print (myjson)
