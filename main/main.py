@@ -53,7 +53,7 @@ def getData(lampid):
 		else:
 			enable = False
 		lamps[str(lampid)].update({'amperage':amperage,'voltage':voltage,'enable':enable,'connected':1,'id':lampid})
-		cnx = mysql.connector.connect(user='root', password='MySqLrOoT', host='10.230.0.161', database='arduinodatabase')
+		cnx = mysql.connector.connect(user='user', password='password', host='10.230.0.161', database='arduinodatabase')
 		cursor = cnx.cursor()
 		query = "INSERT INTO valuesofconsumption(consumper_id, capasitor_id, capasity,voltage,amperage) VALUES(" + str(lampid) + ", 1, " + str(amperage * voltage) + ", " + str(voltage) + ", " + str(amperage) + "); "
 		cursor.execute(query)
