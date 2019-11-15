@@ -19,4 +19,4 @@ you can on/off every lamp, on/off all lamps by the only one click and see sunset
 
 ![](https://i.ibb.co/XZyyS5g/image.png)
 
-`web\`
+`cgi\`
