@@ -13,7 +13,7 @@ requests all controllers to get amperage/voltage data and record it to MySQL or 
 
 `main\main.py`
 
-## Python CGI for WebUI + Apache + JavaScript frontend
+## Python CGI for WebUI + IIS + JavaScript frontend
 
 you can on/off every lamp, on/off all lamps by the only one click and see sunset/sunrise times by that UI
 
