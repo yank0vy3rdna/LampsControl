@@ -1,3 +1,6 @@
+
+ignoreLamps = [8, 9, 10, 11, 12]
+
 getDataRequest = [ 1, 00, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
 lampONRequest = [ 1, 160, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
 lampOFFRequest = [ 1, 80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
@@ -53,9 +56,10 @@ def getData(lampid):
 		else:
 			enable = False
 		lamps[str(lampid)].update({'amperage':amperage,'voltage':voltage,'enable':enable,'connected':1,'id':lampid})
-		cnx = mysql.connector.connect(user='user', password='password', host='10.230.0.161', database='arduinodatabase')
+		cnx = mysql.connector.connect(user='user', password='password', host='host', database='database')
 		cursor = cnx.cursor()
 		query = "INSERT INTO valuesofconsumption(consumper_id, capasitor_id, capasity,voltage,amperage) VALUES(" + str(lampid) + ", 1, " + str(amperage * voltage) + ", " + str(voltage) + ", " + str(amperage) + "); "
+		xquery = 'DELETE FROM valuesofconsumption WHERE timestamp < time()-60*60*24*14;'
 		cursor.execute(query)
 		cnx.commit()
 		cursor.close()
@@ -78,12 +82,12 @@ def lampOff(lampid):
 def allOff():
 	#print(datetime.datetime.now(), ' выключение ламп')
 	for lamp in lamps.keys():
-		if lamps[lamp]['type'] == 'lamp':
+		if lamps[lamp]['type'] == 'lamp' and lamps[lamp]['id'] not in ignoreLamps:
 			lampOff(lamp)
 			
 def allOn():
 	for lamp in lamps.keys():
-		if lamps[lamp]['type'] == 'lamp':
+		if lamps[lamp]['type'] == 'lamp' and lamps[lamp]['id'] not in ignoreLamps:
 			lampOn(lamp)
 			
 def getDataAsync(lampid):
