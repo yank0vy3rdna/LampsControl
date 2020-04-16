@@ -1,6 +1,9 @@
 # LampsControl
 Managing street lights
 
+## Subrepos
+- [Python main app](https://github.com/yank0vy3rdna/main-lamps)
+
 ## Controller with arduino+ethernet+relay:
 
 ![](https://i.ibb.co/f256Qfj/image.png)
@@ -10,8 +13,6 @@ Managing street lights
 ## Python main app
 
 requests all controllers to get amperage/voltage data and record it to MySQL or send on/off commands from WebUI or time of sunsets and sunrises for each lamp controller.
-
-`main\main.py`
 
 ## Python CGI for WebUI + IIS + JavaScript frontend
 
