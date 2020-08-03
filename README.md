@@ -17,6 +17,6 @@ requests all controllers to get amperage/voltage data and record it to MySQL or 
 
 you can on/off every lamp, on/off all lamps by the only one click and see sunset/sunrise times by that UI. Dockerized
 
-![](https://i.ibb.co/XZyyS5g/image.png)
+![](https://i.imgur.com/Qflli9J.png)
 
 - [Python web backend](https://github.com/yank0vy3rdna/web-lamps)
