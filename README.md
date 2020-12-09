@@ -1,22 +1,38 @@
 # LampsControl
-Managing street lights
+Управление уличным освещением
 
-## Controller with arduino+ethernet+relay:
+## Controller arduino+ethernet+relay+sensors:
 
 ![](https://i.ibb.co/f256Qfj/image.png)
 
 `arduino\arduino.ino`
 
-## Python main app
+## Python backend
 
-requests all controllers to get amperage/voltage data and record it to MySQL or send on/off commands from WebUI or time of sunsets and sunrises for each lamp controller. Dockerized
+Опрашивает с заданной периодичностью все устройства. Записывает данные о токе, напряжении, мощности на каждой лампе в базу Clickhouse. Реализует API для фронтенда. Работает в Docker
 
-- [Python main app](https://github.com/yank0vy3rdna/main-lamps)
+- [Python backend](https://github.com/yank0vy3rdna/web-lamps)
 
-## Python CGI for WebUI. Python backend + JavaScript frontend
+## React frontend
 
-you can on/off every lamp, on/off all lamps by the only one click and see sunset/sunrise times by that UI. Dockerized
+Реализует интерфейс для управления системой. Позволяет кликом по карте включить или выключить лампу, а также включить сразу все лампы. Реализована авторизация. Работает в Docker
 
-![](https://i.ibb.co/XZyyS5g/image.png)
+![](https://i.imgur.com/rcfkdDg.png)
 
-- [Python web backend](https://github.com/yank0vy3rdna/web-lamps)
+- [React frontend](https://github.com/yank0vy3rdna/web_front_lamps)
+
+## Grafana+Clickhouse
+
+### Clickhouse
+
+Я использую базу Clickhouse, так как она хорошо подходит для подобного рода задач, ведь я храню в ней записи о моментальных значениях показаний датчиков.
+
+### Grafana
+
+Позволяет строить графики на основе данных из Clickhouse
+
+![](https://i.imgur.com/ZFcMKw5.png)
+
+## nginx
+
+Все сервисы работают через reverse proxy nginx
